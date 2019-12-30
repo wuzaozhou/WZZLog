@@ -7,6 +7,7 @@
 //
 
 #import "WZZViewController.h"
+#import "WZLogManager.h"
 
 @interface WZZViewController ()
 
@@ -17,13 +18,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self loger:@"dd0"];
+    });
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        [self loger:@"dd1"];
+        
+    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loger:@"dd2"];
+    });
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)loger:(NSString *)msd {
+    WZLog(@"model", msd);
 }
-
 @end
